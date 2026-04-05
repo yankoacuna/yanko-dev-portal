@@ -9,7 +9,7 @@ interface Message {
 }
 
 export default function IAnkoChat() {
-  const { lang, t } = useI18n();
+  const { lang } = useI18n();
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
@@ -24,9 +24,10 @@ export default function IAnkoChat() {
     } else {
       setMessages([
         {
-          role: 'assistant', content: lang === 'es'
-            ? '¡Hola! Soy IAnko. ¿En qué puedo ayudarte hoy sobre el perfil de Yanko?'
-            : 'Hello! I am IAnko. How can I help you today regarding Yanko\'s profile?'
+          role: 'assistant',
+          content: lang === 'es'
+            ? '¡Hola! Soy IAnko, la versión digital de Yanko Acuña. ¿En qué te puedo ayudar hoy sobre mi perfil profesional?'
+            : 'Hi! I am IAnko, Yanko Acuña\'s digital version. How can I help you today regarding my professional profile?'
         }
       ]);
     }
@@ -46,9 +47,10 @@ export default function IAnkoChat() {
     sessionStorage.removeItem('ianko-chat');
     setMessages([
       {
-        role: 'assistant', content: lang === 'es'
-          ? '¡Hola! Soy IAnko. ¿En qué puedo ayudarte hoy sobre el perfil de Yanko?'
-          : 'Hello! I am IAnko. How can I help you today regarding Yanko\'s profile?'
+        role: 'assistant',
+        content: lang === 'es'
+          ? '¡Hola! Soy IAnko, la versión digital de Yanko Acuña. ¿En qué te puedo ayudar hoy sobre mi perfil profesional?'
+          : 'Hi! I am IAnko, Yanko Acuña\'s digital version. How can I help you today regarding my professional profile?'
       }
     ]);
   };
@@ -65,14 +67,14 @@ export default function IAnkoChat() {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: [...messages, userMessage], lang }),
+        body: JSON.stringify({ messages: [...messages, userMessage] }),
       });
 
       if (!response.ok) throw new Error('Error en el chat');
 
       const data = await response.json();
       setMessages(prev => [...prev, { role: 'assistant', content: data.response }]);
-    } catch (error) {
+    } catch {
       setMessages(prev => [...prev, {
         role: 'assistant',
         content: lang === 'es' ? 'Lo siento, tuve un problema de conexión. Inténtalo de nuevo.' : 'Sorry, I had a connection problem. Please try again.'
@@ -97,20 +99,22 @@ export default function IAnkoChat() {
               </div>
               <div>
                 <h3 className="font-bold text-[var(--accent)] text-lg leading-tight uppercase tracking-tight">IAnko</h3>
-                <p className="text-[var(--text-muted)] text-[0.65rem] uppercase tracking-widest font-bold opacity-80">Soporte Inteligente</p>
+                <p className="text-[var(--text-muted)] text-[0.65rem] uppercase tracking-widest font-bold opacity-80">
+                  {lang === 'es' ? 'Versión Digital Activa' : 'Digital Version Online'}
+                </p>
               </div>
             </div>
             <div className="flex items-center gap-1">
-              <button 
-                onClick={clearChat} 
+              <button
+                onClick={clearChat}
                 aria-label={lang === 'es' ? 'Limpiar historial de chat' : 'Clear chat history'}
                 title={lang === 'es' ? 'Limpiar chat' : 'Clear chat'}
                 className="p-2 hover:bg-red-500/10 hover:text-red-400 rounded-full transition-all text-[var(--text-muted)] group/trash"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover/trash:scale-110 transition-transform"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
               </button>
-              <button 
-                onClick={() => setIsOpen(false)} 
+              <button
+                onClick={() => setIsOpen(false)}
                 aria-label={lang === 'es' ? 'Cerrar ventana de chat' : 'Close chat window'}
                 className="p-2 hover:bg-[var(--bg-card-hover)] rounded-full transition-colors text-[var(--text-muted)]"
               >
@@ -122,7 +126,7 @@ export default function IAnkoChat() {
           {/* Messages */}
           <div ref={scrollRef} className="flex-1 overflow-y-auto px-8 py-10 space-y-8 bg-[rgba(13,17,23,0.3)]">
             {messages.map((msg, idx) => (
-              <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-in fade-in slide-in-from-bottom-2 duration-300 fill-mode-both`} style={{ animationDelay: `${idx * 0.05}s` }}>
+              <div key={`${msg.role}-${idx}`} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-in fade-in slide-in-from-bottom-2 duration-300 fill-mode-both`} style={{ animationDelay: `${idx * 0.05}s` }}>
                 <div className={`max-w-[85%] px-5 py-2 rounded-3xl text-[0.95rem] leading-relaxed shadow-sm ${msg.role === 'user'
                   ? 'bg-[var(--accent)] text-white rounded-tr-none shadow-md shadow-[var(--accent-glow)]'
                   : 'bg-[var(--bg-secondary)] border border-[var(--border)] text-[var(--text-primary)] rounded-tl-none'
@@ -150,10 +154,10 @@ export default function IAnkoChat() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                placeholder={lang === 'es' ? 'Pregunta algo...' : 'Ask something...'}
+                placeholder={lang === 'es' ? 'Pregúntame lo que quieras...' : 'Ask me anything...'}
                 className="w-full pl-5 pr-14 py-4 bg-[var(--bg-primary)] border border-[var(--border)] rounded-2xl text-[var(--text-primary)] outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent-glow)] transition-all placeholder:text-[var(--text-muted)] placeholder:opacity-50"
               />
-              <button 
+              <button
                 onClick={handleSend}
                 disabled={!input.trim() || isLoading}
                 aria-label={lang === 'es' ? 'Enviar mensaje' : 'Send message'}

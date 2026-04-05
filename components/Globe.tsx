@@ -77,38 +77,37 @@ function RemoteIcon() {
 
 function GlobeInner() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const globeRef = useRef<unknown>(null);
-  const [active, setActive] = useState(0);
+    const globeRef = useRef<any>(null);
+    const [active, setActive] = useState(0);
 
-  useEffect(() => {
-    let globe: unknown = null;
-    let destroyed = false;
+    useEffect(() => {
+      let destroyed = false;
 
     async function initGlobe() {
       if (!containerRef.current) return;
 
       // Dynamic import to avoid SSR issues
       const GlobeGL = (await import('globe.gl')).default;
-
       if (destroyed || !containerRef.current) return;
 
       const isDark = !document.body.classList.contains('light-theme');
 
-      globe = GlobeGL({ animateIn: false })(containerRef.current);
-      globeRef.current = globe;
+      // Cast to any to bypass "not callable" error in some TS versions
+      const globeInstance = (GlobeGL as any)({ animateIn: false })(containerRef.current);
+      globeRef.current = globeInstance;
 
-      const g = globe as {
-        width: (n: number) => unknown;
-        height: (n: number) => unknown;
-        backgroundColor: (c: string) => unknown;
-        globeImageUrl: (u: string) => unknown;
-        atmosphereColor: (c: string) => unknown;
-        atmosphereAltitude: (n: number) => unknown;
-        pointsData: (d: unknown[]) => unknown;
-        pointColor: (fn: (d: unknown) => string) => unknown;
-        pointAltitude: (n: number) => unknown;
-        pointRadius: (n: number) => unknown;
-        pointsMerge: (b: boolean) => unknown;
+      const g = globeInstance as {
+        width: (n: number) => any;
+        height: (n: number) => any;
+        backgroundColor: (c: string) => any;
+        globeImageUrl: (u: string) => any;
+        atmosphereColor: (c: string) => any;
+        atmosphereAltitude: (n: number) => any;
+        pointsData: (d: unknown[]) => any;
+        pointColor: (fn: (d: unknown) => string) => any;
+        pointAltitude: (n: number) => any;
+        pointRadius: (n: number) => any;
+        pointsMerge: (b: boolean) => any;
         controls: () => { autoRotate: boolean; autoRotateSpeed: number; enableZoom: boolean };
         pointOfView: (v: { lat: number; lng: number; altitude: number }, ms: number) => void;
       };
@@ -126,7 +125,7 @@ function GlobeInner() {
         .atmosphereColor(isDark ? '#4f8ef7' : '#6baed6')
         .atmosphereAltitude(0.15)
         .pointsData(locations)
-        .pointColor((d) => (d as Location).color)
+        .pointColor((d: any) => (d as Location).color)
         .pointAltitude(0.06)
         .pointRadius(0.5)
         .pointsMerge(false);
