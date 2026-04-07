@@ -2,9 +2,33 @@
 
 import React from 'react';
 import { useI18n } from '@/context/LanguageContext';
+import { toast } from 'sonner';
 
 export default function Contact() {
   const { t } = useI18n();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    
+    const promise = fetch(form.action, {
+      method: form.method,
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+
+    toast.promise(promise, {
+      loading: t('messageSending'),
+      success: () => {
+        form.reset();
+        return t('contactSuccess');
+      },
+      error: t('contactError'),
+    });
+  };
 
   return (
     <section id="contacto" className="section">
@@ -20,8 +44,9 @@ export default function Contact() {
           <form
             id="contactForm"
             className="contact-form"
-            action="https://formsubmit.co/133004df0878810044f163df48f5d6ee"
+            action="https://formsubmit.co/ajax/133004df0878810044f163df48f5d6ee"
             method="POST"
+            onSubmit={handleSubmit}
           >
             {/* Formsubmit config */}
             <input type="hidden" name="_next" value="https://yankoacuna.cl/" />

@@ -166,7 +166,10 @@ export const T = {
     contactMessage: 'Tu mensaje...',
     contactSubmit: 'Enviar Mensaje',
     contactSuccess: '¡Mensaje enviado con éxito!',
-    contactError: 'Ocurrió un error al enviar el mensaje. Inténtalo de nuevo.'
+    contactError: 'Ocurrió un error al enviar el mensaje. Inténtalo de nuevo.',
+    emailCopied: 'Email copiado al portapapeles',
+    messageSending: 'Enviando mensaje...',
+    chatCleared: 'Historial de chat limpiado'
   },
   en: {
     // Hero & Nav
@@ -331,6 +334,9 @@ export const T = {
     contactMessage: 'Your message...',
     contactSubmit: 'Send Message',
     contactSuccess: 'Message sent successfully!',
-    contactError: 'An error occurred while sending the message. Please try again.'
+    contactError: 'An error occurred while sending the message. Please try again.',
+    emailCopied: 'Email copied to clipboard',
+    messageSending: 'Sending message...',
+    chatCleared: 'Chat history cleared'
   }
 };

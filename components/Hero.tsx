@@ -2,13 +2,14 @@
 
 import React from 'react';
 import { useI18n } from '@/context/LanguageContext';
+import { toast } from 'sonner';
 
 export default function Hero() {
   const { lang, t } = useI18n();
 
   const copyEmail = () => {
     navigator.clipboard.writeText('contacto@yankoacuna.cl');
-    alert('Email copiado al portapapeles!');
+    toast.success(t('emailCopied'));
   };
 
   return (

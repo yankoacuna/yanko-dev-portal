@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useI18n } from '@/context/LanguageContext';
+import { toast } from 'sonner';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -9,7 +10,7 @@ interface Message {
 }
 
 export default function IAnkoChat() {
-  const { lang } = useI18n();
+  const { lang, t } = useI18n();
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
@@ -53,6 +54,7 @@ export default function IAnkoChat() {
           : 'Hi! I am IAnko, Yanko Acuña\'s digital version. How can I help you today regarding my professional profile?'
       }
     ]);
+    toast.info(t('chatCleared'));
   };
 
   const handleSend = async () => {

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { LanguageProvider } from "@/context/LanguageContext";
+import { Toaster } from 'sonner';
 
 const inter = Inter({ subsets: ["latin"], weight: ["300","400","500","600","700","800"] });
 
@@ -96,6 +97,7 @@ export default function RootLayout({
         <ThemeProvider>
           <LanguageProvider>
             {children}
+            <Toaster position="bottom-right" theme="dark" closeButton richColors />
           </LanguageProvider>
         </ThemeProvider>
       </body>
