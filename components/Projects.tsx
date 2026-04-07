@@ -154,10 +154,10 @@ export default function Projects() {
   const [showHidden, setShowHidden] = useState(false);
 
   const filters = [
-    { id: 'all',          label: 'Todos' },
-    { id: 'industria',    label: 'Industria' },
-    { id: 'ia',           label: 'IA / Machine Learning' },
-    { id: 'fullstack',    label: 'Full Stack' },
+    { id: 'all', label: 'Todos' },
+    { id: 'industria', label: 'Industria' },
+    { id: 'ia', label: 'IA / Machine Learning' },
+    { id: 'fullstack', label: 'Full Stack' },
     { id: 'investigacion', label: 'Investigación' },
   ];
 
@@ -260,6 +260,22 @@ export default function Projects() {
       github: 'https://github.com/yankoacuna/Deteccion-de-anomal-as-cardiacas',
     },
     {
+      id: 'proyecto-gps',
+      title: t('gps_title'),
+      desc: t('gps_desc'),
+      image: '/imagenes/gps/mapa_ubicaciones.webp',
+      categories: ['fullstack'],
+      badge: 'academic', badgeLabel: t('badge_academic'),
+      context: t('gps_role'),
+      impactTags: [{ text: 'Node.js', cls: 'tag-backend' }, { text: 'React', cls: 'tag-frontend' }, { text: 'PostgreSQL', cls: 'tag-db' }],
+      features: [t('gps_f1'), t('gps_f2'), t('gps_f3'), t('gps_f4')],
+      techGroups: [
+        { label: 'Frontend', tags: [{ text: 'React', cls: 'tag-frontend' }, { text: 'JavaScript', cls: 'tag-frontend' }, { text: 'Vite', cls: 'tag-frontend' }] },
+        { label: 'Backend / Infra', tags: [{ text: 'Express', cls: 'tag-backend' }, { text: 'Node.js', cls: 'tag-backend' }, { text: 'Prisma ORM', cls: 'tag-backend' }, { text: 'PostgreSQL', cls: 'tag-db' }, { text: 'Servidor académico', cls: 'tag-infra' }] },
+      ],
+      github: 'https://github.com/yankoacuna/GPS-Pasivo-Papugrupo',
+    },
+    {
       id: 'proyecto-tareas',
       title: t('tareas_title'),
       desc: t('tareas_desc'),
@@ -276,20 +292,18 @@ export default function Projects() {
       github: 'https://github.com/yankoacuna/Prueba-Tecnica-ISOLOGIC',
     },
     {
-      id: 'proyecto-gps',
-      title: t('gps_title'),
-      desc: t('gps_desc'),
-      image: '/imagenes/gps/mapa_ubicaciones.webp',
+      id: 'proyecto-tablero',
+      title: t('tablero_title'),
+      desc: t('tabl_desc'),
+      image: '/imagenes/tablero/vista_principal.webp',
       categories: ['fullstack'],
       badge: 'academic', badgeLabel: t('badge_academic'),
-      context: t('gps_role'),
-      impactTags: [{ text: 'Node.js', cls: 'tag-backend' }, { text: 'React', cls: 'tag-frontend' }, { text: 'PostgreSQL', cls: 'tag-db' }],
-      features: [t('gps_f1'), t('gps_f2'), t('gps_f3'), t('gps_f4')],
+      context: t('tablero_role'),
+      impactTags: [{ text: 'Node.js', cls: 'tag-backend' }, { text: 'React', cls: 'tag-frontend' }, { text: 'Arduino', cls: 'tag-infra' }],
+      features: [t('tabl_f1'), t('tabl_f2'), t('tabl_f3'), t('tabl_f4')],
       techGroups: [
-        { label: 'Frontend', tags: [{ text: 'React', cls: 'tag-frontend' }, { text: 'JavaScript', cls: 'tag-frontend' }, { text: 'Vite', cls: 'tag-frontend' }] },
-        { label: 'Backend / Infra', tags: [{ text: 'Express', cls: 'tag-backend' }, { text: 'Node.js', cls: 'tag-backend' }, { text: 'Prisma ORM', cls: 'tag-backend' }, { text: 'PostgreSQL', cls: 'tag-db' }, { text: 'Servidor académico', cls: 'tag-infra' }] },
+        { label: 'Stack', tags: [{ text: 'React', cls: 'tag-frontend' }, { text: 'Node.js', cls: 'tag-backend' }, { text: 'Express', cls: 'tag-backend' }, { text: 'Prisma ORM', cls: 'tag-backend' }, { text: 'PostgreSQL', cls: 'tag-db' }, { text: 'Serial Port', cls: 'tag-infra' }, { text: 'Arduino', cls: 'tag-infra' }] },
       ],
-      github: 'https://github.com/yankoacuna/GPS-Pasivo-Papugrupo',
     },
     {
       id: 'proyecto-mercadito',
@@ -327,7 +341,7 @@ export default function Projects() {
       id: 'proyecto-horarios',
       title: t('horarios_title'),
       desc: t('horarios_desc'),
-      image: '/imagenes/horarios/horarios.webp',
+      image: '/imagenes/sgha/home.webp',
       categories: ['fullstack'],
       badge: 'academic', badgeLabel: t('badge_academic'),
       context: t('horarios_role'),
@@ -335,20 +349,6 @@ export default function Projects() {
       features: [t('horarios_f1'), t('horarios_f2'), t('horarios_f3'), t('horarios_f4')],
       techGroups: [
         { label: 'Stack', tags: [{ text: 'Laravel', cls: 'tag-backend' }, { text: 'PHP', cls: 'tag-backend' }, { text: 'Blade', cls: 'tag-frontend' }, { text: 'MySQL', cls: 'tag-db' }, { text: 'Docker Compose', cls: 'tag-infra' }] },
-      ],
-    },
-    {
-      id: 'proyecto-tablero',
-      title: t('tablero_title'),
-      desc: t('tabl_desc'),
-      image: '/imagenes/tablero/tablero.webp',
-      categories: ['fullstack'],
-      badge: 'academic', badgeLabel: t('badge_academic'),
-      context: t('tablero_role'),
-      impactTags: [{ text: 'Node.js', cls: 'tag-backend' }, { text: 'React', cls: 'tag-frontend' }, { text: 'Arduino', cls: 'tag-infra' }],
-      features: [t('tabl_f1'), t('tabl_f2'), t('tabl_f3'), t('tabl_f4')],
-      techGroups: [
-        { label: 'Stack', tags: [{ text: 'React', cls: 'tag-frontend' }, { text: 'Node.js', cls: 'tag-backend' }, { text: 'Express', cls: 'tag-backend' }, { text: 'Prisma ORM', cls: 'tag-backend' }, { text: 'PostgreSQL', cls: 'tag-db' }, { text: 'Serial Port', cls: 'tag-infra' }, { text: 'Arduino', cls: 'tag-infra' }] },
       ],
     },
   ];
