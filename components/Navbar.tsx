@@ -8,6 +8,7 @@ export default function Navbar() {
   const { lang, setLang, t } = useI18n();
   const { theme, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,6 +17,11 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Cerrar menú al hacer click en un link (para móvil)
+  const handleNavLinkClick = () => {
+    setIsMenuOpen(false);
+  };
 
   const navLinks = [
     { id: 'educacion', label: t('nav_edu') },
@@ -26,16 +32,28 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className={`top-nav ${isScrolled ? 'scrolled' : ''}`}>
+    <nav className={`top-nav ${isScrolled ? 'scrolled' : ''} ${isMenuOpen ? 'menu-open' : ''}`}>
       <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', maxWidth: '1200px', width: '100%' }}>
-        <a href="#" className="nav-brand">
+        <a href="#" className="nav-brand" onClick={() => setIsMenuOpen(false)}>
           Yanko <span>Acuña</span>
         </a>
 
-        <ul className="nav-links">
+        <button 
+          className="mobile-menu-btn" 
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+        >
+          <div className={`hamburger ${isMenuOpen ? 'active' : ''}`}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </button>
+
+        <ul className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
           {navLinks.map((link) => (
             <li key={link.id}>
-              <a href={`#${link.id}`}>
+              <a href={`#${link.id}`} onClick={handleNavLinkClick}>
                 {link.label}
               </a>
             </li>
