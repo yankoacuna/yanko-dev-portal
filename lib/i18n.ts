@@ -169,7 +169,14 @@ export const T = {
     contactError: 'Ocurrió un error al enviar el mensaje. Inténtalo de nuevo.',
     emailCopied: 'Email copiado al portapapeles',
     messageSending: 'Enviando mensaje...',
-    chatCleared: 'Historial de chat limpiado'
+    chatCleared: 'Historial de chat limpiado',
+
+    // Antihack Toasts (ES)
+    hackToast1: '¡Buen intento! Pero la Matrix está a salvo. 🧱',
+    hackToast2: '¿Buscando una puerta trasera? Aquí solo hay café. ☕',
+    hackToast3: 'System Error: Curiosidad detectada, inyección bloqueada. 🐱‍💻',
+    hackToast4: '¡Wow!, hablas más rápido de lo que puedo procesar. Dame un respiro. ☕',
+    hackToast5: '¿Tratando de inyectar código? Mejor envíame un mensaje de verdad. 😉'
   },
   en: {
     // Hero & Nav
@@ -337,6 +344,13 @@ export const T = {
     contactError: 'An error occurred while sending the message. Please try again.',
     emailCopied: 'Email copied to clipboard',
     messageSending: 'Sending message...',
-    chatCleared: 'Chat history cleared'
+    chatCleared: 'Chat history cleared',
+
+    // Antihack Toasts (EN)
+    hackToast1: 'Nice try! But the Matrix is safe. 🧱',
+    hackToast2: 'Looking for a backdoor? Only coffee here. ☕',
+    hackToast3: 'System Error: Curiosity detected, injection blocked. 🐱‍💻',
+    hackToast4: 'Wow!, you speak faster than I can process. Give me a break. ☕',
+    hackToast5: 'Trying to inject code? Better send me a real message. 😉'
   }
 };

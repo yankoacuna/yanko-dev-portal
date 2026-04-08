@@ -11,6 +11,15 @@ export default function Contact() {
     e.preventDefault();
     const form = e.currentTarget;
     const formData = new FormData(form);
+    const message = formData.get('message') as string;
+    const name = formData.get('name') as string;
+
+    // Antihack check
+    const hackPatterns = ['<script', 'onerror', 'onclick', 'eval(', 'document.cookie'];
+    if (hackPatterns.some(p => (name + message).toLowerCase().includes(p.toLowerCase()))) {
+      toast.error(t('hackToast5' as any));
+      return;
+    }
     
     const promise = fetch(form.action, {
       method: form.method,
@@ -44,7 +53,7 @@ export default function Contact() {
           <form
             id="contactForm"
             className="contact-form"
-            action="https://formsubmit.co/ajax/133004df0878810044f163df48f5d6ee"
+            action={`https://formsubmit.co/ajax/${process.env.NEXT_PUBLIC_FORMSUBMIT_KEY}`}
             method="POST"
             onSubmit={handleSubmit}
           >

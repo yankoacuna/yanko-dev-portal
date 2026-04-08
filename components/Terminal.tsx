@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useI18n } from '@/context/LanguageContext';
+import { toast } from 'sonner';
 
 interface TerminalLine {
   id: number;
@@ -42,6 +43,22 @@ export default function Terminal() {
     const args = cmd.trim().split(' ');
     const mainCmd = args[0].toLowerCase();
     
+    // Antihack Easter Egg detection
+    const hackPatterns = [
+      '<script', 'onerror', 'onclick', 'eval(', 'document.cookie', 
+      'SELECT ', 'UNION SELECT', 'INSERT INTO', 'DROP TABLE', 'OR 1=1'
+    ];
+    
+    const isAttempt = hackPatterns.some(p => cmd.toUpperCase().includes(p.toUpperCase()));
+    
+    if (isAttempt) {
+      const toasts = ['hackToast1', 'hackToast2', 'hackToast3'];
+      const randomToast = toasts[Math.floor(Math.random() * toasts.length)];
+      toast.error(t(randomToast as any));
+      printLine(cmd, 'input');
+      return;
+    }
+
     printLine(cmd, 'input');
 
     switch (mainCmd) {
@@ -161,7 +178,14 @@ export default function Terminal() {
                           <span>{line.content}</span>
                         </div>
                       ) : (
-                        <div dangerouslySetInnerHTML={{ __html: line.content }} />
+                        <div>
+                          {/* Solo usamos dangerouslySetInnerHTML para líneas internas de confianza (que contienen HTML estático) */}
+                          {line.content.includes('<span') || line.content.includes('<a') || line.content.includes('<div') ? (
+                            <div dangerouslySetInnerHTML={{ __html: line.content }} />
+                          ) : (
+                            <span>{line.content}</span>
+                          )}
+                        </div>
                       )}
                     </div>
                   ))}

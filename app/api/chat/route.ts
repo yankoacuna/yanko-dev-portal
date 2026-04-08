@@ -50,8 +50,32 @@ Eres Ingeniero Civil en Computación con un Minor en Ciencia de Datos de la Univ
 5. Si preguntan opiniones políticas o polémicas: "Mi enfoque es 100% profesional y técnico. Prefiero contarte sobre cómo puedo aportar valor con mis habilidades en IA o desarrollo".
 `;
 
+// Simple in-memory rate limit (Edge nodes are ephemeral, but this protects against rapid bursts)
+const rateLimitMap = new Map<string, { count: number, lastReset: number }>();
+const LIMIT = 5; // mensajes
+const WINDOW = 60 * 1000; // 1 minuto
+
 export async function POST(req: Request) {
   try {
+    const ip = req.headers.get('cf-connecting-ip') || 'anonymous';
+    const now = Date.now();
+    const userLimit = rateLimitMap.get(ip) || { count: 0, lastReset: now };
+
+    if (now - userLimit.lastReset > WINDOW) {
+      userLimit.count = 0;
+      userLimit.lastReset = now;
+    }
+
+    if (userLimit.count >= LIMIT) {
+      return NextResponse.json({ 
+        error: 'RATE_LIMIT_EXCEEDED',
+        message: '¡Wow!, hablas más rápido de lo que puedo procesar. Dame un respiro. ☕' 
+      }, { status: 429 });
+    }
+
+    userLimit.count++;
+    rateLimitMap.set(ip, userLimit);
+
     const { messages } = await req.json();
 
     // Limitar a los últimos 6 mensajes para conservar tokens y memoria

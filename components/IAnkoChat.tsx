@@ -72,9 +72,15 @@ export default function IAnkoChat() {
         body: JSON.stringify({ messages: [...messages, userMessage] }),
       });
 
+      const data = await response.json();
+
+      if (response.status === 429) {
+        setMessages(prev => [...prev, { role: 'assistant', content: data.message || data.error }]);
+        return;
+      }
+
       if (!response.ok) throw new Error('Error en el chat');
 
-      const data = await response.json();
       setMessages(prev => [...prev, { role: 'assistant', content: data.response }]);
     } catch {
       setMessages(prev => [...prev, {
