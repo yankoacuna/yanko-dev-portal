@@ -1,32 +1,76 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useI18n } from '@/context/LanguageContext';
 import { toast } from 'sonner';
 
+/* ─── Main Hero ─────────────────────────────────────────── */
 export default function Hero() {
   const { lang, t } = useI18n();
+  const [aboutOpen, setAboutOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const copyEmail = () => {
     navigator.clipboard.writeText('contacto@yankoacuna.cl');
     toast.success(t('emailCopied'));
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
     <header className="hero">
       <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-        <p className="subtitle" style={{ fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: '1rem' }}>
+
+        {/* Avatar */}
+        <div className="hero-avatar-wrap">
+          <div className="hero-avatar-ring">
+            <img
+              src="/imagenes/yanko_avatar.webp"
+              alt="Yanko Acuña Villaseca"
+              className="hero-avatar-img"
+            />
+          </div>
+        </div>
+
+        <p className="subtitle" style={{ fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: '0.75rem' }}>
           {t('subtitle')}
         </p>
-        <h1 className="animate-in fade-in-up duration-700" style={{ marginBottom: '1.5rem' }}>Yanko Acuña Villaseca</h1>
+        <h1 className="animate-in fade-in-up duration-700" style={{ marginBottom: '1rem' }}>Yanko Acuña Villaseca</h1>
         <p style={{
-          maxWidth: '700px', margin: '0 auto 3rem',
-          color: 'var(--text-secondary)', fontSize: '1.1rem',
+          maxWidth: '680px', margin: '0 auto 1.5rem',
+          color: 'var(--text-secondary)', fontSize: '1.05rem',
           fontWeight: 300, lineHeight: 1.7
         }}>
           {t('heroDesc')}
         </p>
 
+        {/* About Me toggle */}
+        <div style={{ marginBottom: '2rem' }}>
+          <button
+            onClick={() => setAboutOpen(!aboutOpen)}
+            className="about-me-toggle"
+            aria-expanded={aboutOpen}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 16v-4M12 8h.01" />
+            </svg>
+            <span>{t('aboutMeBtn')}</span>
+            <svg
+              width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+              strokeLinecap="round" strokeLinejoin="round"
+              style={{ transition: 'transform 0.3s', transform: aboutOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+            >
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+
+          <div className={`about-me-panel${aboutOpen ? ' open' : ''}`}>
+            <p>{t('aboutMeText')}</p>
+          </div>
+        </div>
+
+        {/* Social links */}
         <div className="social-links" style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
           <a href="https://www.linkedin.com/in/yanko-acuna-villaseca" target="_blank" rel="noopener noreferrer" className="glass hover:bg-[var(--accent-glow)] transition-all" style={{ padding: '0.7rem 1.5rem', borderRadius: '10px', display: 'flex', alignItems: 'center', gap: '0.6rem', textDecoration: 'none', color: 'var(--text-primary)', fontWeight: 500 }}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="#0A66C2">
@@ -46,22 +90,37 @@ export default function Hero() {
             style={{
               cursor: 'pointer', display: 'flex', alignItems: 'center',
               gap: '0.6rem', padding: '0.7rem 1.5rem', borderRadius: '10px',
-              color: 'var(--text-primary)', border: 'none', outline: 'none',
-              fontSize: '0.95rem', fontWeight: 500
+              color: copied ? 'var(--green)' : 'var(--text-primary)', border: 'none', outline: 'none',
+              fontSize: '0.95rem', fontWeight: 500, transition: 'color 0.2s'
             }}
           >
+            {/* Mail icon */}
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <rect x="2" y="4" width="20" height="16" rx="2" />
               <polyline points="2,4 12,13 22,4" />
             </svg>
             contacto@yankoacuna.cl
+            {/* Clipboard / check icon */}
+            <span style={{ display: 'flex', alignItems: 'center', marginLeft: '2px', transition: 'transform 0.2s', transform: copied ? 'scale(1.2)' : 'scale(1)' }}>
+              {copied ? (
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              ) : (
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.6 }}>
+                  <rect x="9" y="9" width="13" height="13" rx="2" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg>
+              )}
+            </span>
           </button>
         </div>
 
-        <div className="cv-links" style={{ marginTop: '3.5rem' }}>
+        {/* CV download */}
+        <div className="cv-links" style={{ marginTop: '2rem' }}>
           <a
-            href="/CV/CV_Yanko_Acuna_Villaseca.pdf"
-            download
+            href={lang === 'es' ? '/CV/CV_Yanko_Acuna_Villaseca.pdf' : '/CV/CV_Yanko_Acuna_Villaseca_en.pdf'}
+            download={lang === 'es' ? 'CV_Yanko_Acuna_Villaseca.pdf' : 'CV_Yanko_Acuna_Villaseca_en.pdf'}
             className="cv-btn glass"
             style={{
               display: 'inline-flex', alignItems: 'center', gap: '0.8rem',

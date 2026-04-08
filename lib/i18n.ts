@@ -5,6 +5,17 @@ export const T = {
     heroDesc: 'Ingeniero Civil en Computación con Minor en Ciencia de Datos. Especializado en desarrollo Full Stack y entrenamiento de modelos de IA.',
     cvEs: 'Descargar CV (ES)',
     cvEn: 'Descargar CV (EN)',
+
+    // About Me
+    aboutMeBtn: 'Sobre mí',
+    aboutMeClose: 'Cerrar',
+    aboutMeText: 'Ingeniero Civil en Computación especializado en digitalización industrial y ciencia de datos. Mi enfoque combina la robustez del desarrollo Full Stack con la potencia de la IA para transformar procesos complejos en sistemas escalables. Con experiencia real en optimización de plantas industriales e interoperabilidad clínica, construyo software diseñado para funcionar bajo presión, priorizando siempre la seguridad, la calidad del código y el impacto medible en el negocio.',
+
+    // Stats
+    stat_projects: 'Proyectos',
+    stat_experience: 'Años de Exp.',
+    stat_technologies: 'Tecnologías',
+    stat_commits: 'Commits GitHub',
     nav_exp: 'Experiencia',
     nav_proj: 'Proyectos',
     nav_skills: 'Habilidades',
@@ -140,8 +151,12 @@ export const T = {
     skillsTitle: 'Habilidades <span>Técnicas</span>',
     skillsSub: 'Tecnologías aplicadas en producción y proyectos de investigación.',
     langTitle: 'Idiomas',
-    lang_es: 'Español (Nativo)',
-    lang_en: 'Inglés (B2)',
+    lang_es: 'Español',
+    lang_en: 'Inglés',
+    skill_expert: 'Experto',
+    skill_advanced: 'Avanzado',
+    skill_intermediate: 'Intermedio',
+    skill_basic: 'Básico',
 
     // Etiquetas (Badges)
     badge_industrial: 'Producción Industrial',
@@ -184,6 +199,17 @@ export const T = {
     heroDesc: 'Software Engineer with a Minor in Data Science. Specialized in Full Stack development and AI model training.',
     cvEs: 'Download CV (ES)',
     cvEn: 'Download CV (EN)',
+
+    // About Me
+    aboutMeBtn: 'About Me',
+    aboutMeClose: 'Close',
+    aboutMeText: "Computer Science Engineer specialized in industrial digitalization and data science. My approach bridges the gap between robust Full Stack development and the power of AI to transform complex processes into scalable systems. With hands-on experience in industrial plant optimization and clinical interoperability, I build software engineered to perform under pressure, always prioritizing security (OWASP), code quality, and measurable business impact.",
+
+    // Stats
+    stat_projects: 'Projects',
+    stat_experience: 'Yrs Exp.',
+    stat_technologies: 'Technologies',
+    stat_commits: 'GitHub Commits',
     nav_exp: 'Experience',
     nav_proj: 'Projects',
     nav_skills: 'Skills',
@@ -330,8 +356,12 @@ export const T = {
     load_more: 'Show More Projects',
     hide_projects: 'Show Less Projects',
     langTitle: 'Languages',
-    lang_es: 'Spanish (Native)',
-    lang_en: 'English (B2)',
+    lang_es: 'Spanish',
+    lang_en: 'English',
+    skill_expert: 'Expert',
+    skill_advanced: 'Advanced',
+    skill_intermediate: 'Intermediate',
+    skill_basic: 'Basic',
 
     // Contact
     contactTitle: 'Direct <span>Contact</span>',

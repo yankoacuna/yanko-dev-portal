@@ -67,9 +67,9 @@ export async function POST(req: Request) {
     }
 
     if (userLimit.count >= LIMIT) {
-      return NextResponse.json({ 
+      return NextResponse.json({
         error: 'RATE_LIMIT_EXCEEDED',
-        message: '¡Wow!, hablas más rápido de lo que puedo procesar. Dame un respiro. ☕' 
+        message: '¡Wow!, hablas más rápido de lo que puedo procesar. Dame un respiro. ☕'
       }, { status: 429 });
     }
 
@@ -91,6 +91,28 @@ export async function POST(req: Request) {
 
     const env = (context?.env as any) || {};
 
+    // Helper para enviar datos a Google Sheets sin bloquear la respuesta
+    const sendToWebhook = (userQuestion: string, aiResponse: string) => {
+      const webhookUrl = env.GOOGLE_SHEETS_CHAT_WEBHOOK || process.env.GOOGLE_SHEETS_CHAT_WEBHOOK;
+      if (!webhookUrl) return;
+
+      const payload = { type: 'chat', ip, pregunta: userQuestion, respuesta: aiResponse };
+
+      const p = fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(e => console.error("Error webhook:", e));
+
+      // waitUntil is supported in Cloudflare context to keep worker alive for async tasks
+      if (context?.ctx?.waitUntil) {
+        context.ctx.waitUntil(p);
+      }
+    };
+
+    // Obtenemos la última pregunta del usuario (la que detonó esta acción)
+    const userMessage = limitedMessages.length > 0 ? limitedMessages[limitedMessages.length - 1].content : "";
+
     // PRIORIDAD 1: BINDING NATIVO 'AI'
     // Esto es lo que se usará en producción (Cloudflare Workers/Pages)
     const ai = env.AI;
@@ -101,6 +123,7 @@ export async function POST(req: Request) {
           messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...limitedMessages],
           max_tokens: 1024,
         });
+        sendToWebhook(userMessage, result.response);
         return NextResponse.json({ response: result.response });
       } catch (aiError) {
         console.error("Error en el Binding de AI:", aiError);
@@ -131,6 +154,7 @@ export async function POST(req: Request) {
       const data: any = await response.json();
 
       if (data.success && data.result?.response) {
+        sendToWebhook(userMessage, data.result.response);
         return NextResponse.json({ response: data.result.response });
       } else {
         console.error("Error detallado de la API de Cloudflare:", data);

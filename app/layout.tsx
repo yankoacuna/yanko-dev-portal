@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { Toaster } from 'sonner';
+import VisitTracker from '@/components/VisitTracker';
 
 const inter = Inter({ subsets: ["latin"], weight: ["300","400","500","600","700","800"] });
 
@@ -94,6 +95,7 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
+        <VisitTracker />
         <ThemeProvider>
           <LanguageProvider>
             {children}

@@ -20,7 +20,7 @@ export default function Contact() {
       toast.error(t('hackToast5' as any));
       return;
     }
-    
+
     const promise = fetch(form.action, {
       method: form.method,
       body: formData,

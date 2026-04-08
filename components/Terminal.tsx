@@ -42,15 +42,15 @@ export default function Terminal() {
   const processCommand = (cmd: string) => {
     const args = cmd.trim().split(' ');
     const mainCmd = args[0].toLowerCase();
-    
+
     // Antihack Easter Egg detection
     const hackPatterns = [
-      '<script', 'onerror', 'onclick', 'eval(', 'document.cookie', 
+      '<script', 'onerror', 'onclick', 'eval(', 'document.cookie',
       'SELECT ', 'UNION SELECT', 'INSERT INTO', 'DROP TABLE', 'OR 1=1'
     ];
-    
+
     const isAttempt = hackPatterns.some(p => cmd.toUpperCase().includes(p.toUpperCase()));
-    
+
     if (isAttempt) {
       const toasts = ['hackToast1', 'hackToast2', 'hackToast3'];
       const randomToast = toasts[Math.floor(Math.random() * toasts.length)];
@@ -144,8 +144,8 @@ export default function Terminal() {
 
   return (
     <>
-      <button 
-        className="terminal-floating-btn" 
+      <button
+        className="terminal-floating-btn"
         onClick={() => setIsOpen(true)}
         title={lang === 'es' ? 'Abrir Terminal' : 'Open Terminal'}
         aria-label={lang === 'es' ? 'Abrir terminal de comandos' : 'Open command terminal'}
