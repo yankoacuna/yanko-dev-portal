@@ -32,6 +32,15 @@ export default function Experience() {
 
   const experiences = [
     {
+      id: 'cna',
+      title: t('cna_title'),
+      company: t('cna_company'),
+      logo: '/imagenes/logos/nuevos_aires.webp',
+      date: t('cna_date'),
+      bullets: [t('cna_1'), t('cna_2'), t('cna_3')],
+      projectId: null,
+    },
+    {
       id: 'pf',
       title: t('pf_title'),
       company: 'PF Alimentos · Talca, Chile',

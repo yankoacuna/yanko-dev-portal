@@ -39,6 +39,7 @@ interface Project {
   features: string[];
   techGroups: TechGroup[];
   github?: string;
+  demo?: string;
 }
 
 function ProjectCard({ proj, t, priority = false }: { proj: Project; t: (k: string) => string; priority?: boolean }) {
@@ -82,11 +83,11 @@ function ProjectCard({ proj, t, priority = false }: { proj: Project; t: (k: stri
   return (
     <div className="project-card" id={proj.id}>
       <div className="project-image-wrap">
-        <img 
-          loading={priority ? undefined : "lazy"} 
+        <img
+          loading={priority ? undefined : "lazy"}
           fetchPriority={priority ? "high" : "auto"}
-          src={proj.image} 
-          alt={proj.title} 
+          src={proj.image}
+          alt={proj.title}
         />
         <span className={`badge-featured ${badgeClass}`}>
           {badgeIcon}
@@ -140,12 +141,24 @@ function ProjectCard({ proj, t, priority = false }: { proj: Project; t: (k: stri
           <span>{open ? t('hide_details') : t('tech_details')}</span>
         </button>
 
-        {proj.github && (
+        {(proj.github || proj.demo) && (
           <div className="card-footer">
-            <a href={proj.github} target="_blank" rel="noopener noreferrer">
-              <GithubIcon />
-              <span>{t('btn_code')}</span>
-            </a>
+            {proj.github && (
+              <a href={proj.github} target="_blank" rel="noopener noreferrer">
+                <GithubIcon />
+                <span>{t('btn_code')}</span>
+              </a>
+            )}
+            {proj.demo && (
+              <a href={proj.demo} target="_blank" rel="noopener noreferrer">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+                  <path d="M2 12h20" />
+                </svg>
+                <span>{t('btn_demo')}</span>
+              </a>
+            )}
           </div>
         )}
       </div>
@@ -230,6 +243,23 @@ export default function Projects() {
       techGroups: [
         { label: 'Tecnologías y Enfoque', tags: [{ text: 'RLHF', cls: 'tag-ml' }, { text: 'Python', cls: 'tag-ml' }, { text: 'Prompt Engineering', cls: 'tag-ml' }, { text: 'LLM Evaluation', cls: 'tag-ml' }] },
       ],
+    },
+    {
+      id: 'proyecto-cipo',
+      title: t('cipo_title'),
+      desc: t('cipo_desc'),
+      image: '/imagenes/cipo/vista_principal.webp',
+      categories: ['fullstack', 'industria'],
+      badge: 'global', badgeLabel: 'Freelance · Cliente Real',
+      context: 'constructoracipo.cl',
+      impactTags: [{ text: 'Next.js', cls: 'tag-frontend' }, { text: 'IA Chat', cls: 'tag-ml' }, { text: 'Cloudflare', cls: 'tag-infra' }],
+      features: [t('cipo_f1'), t('cipo_f2'), t('cipo_f3'), t('cipo_f4')],
+      techGroups: [
+        { label: 'Frontend', tags: [{ text: 'Next.js 15', cls: 'tag-frontend' }, { text: 'TypeScript', cls: 'tag-frontend' }, { text: 'Tailwind CSS', cls: 'tag-frontend' }] },
+        { label: 'IA & Integraciones', tags: [{ text: 'Google Gemini API', cls: 'tag-ml' }, { text: 'CipoBot (AI Chat)', cls: 'tag-ml' }, { text: 'Google Sheets CMS', cls: 'tag-other' }] },
+        { label: 'Infraestructura & SEO', tags: [{ text: 'Cloudflare Workers', cls: 'tag-infra' }, { text: 'Sitemap / robots.txt', cls: 'tag-infra' }, { text: 'Open Graph', cls: 'tag-infra' }, { text: 'Edge Rendering', cls: 'tag-infra' }] },
+      ],
+      demo: 'https://constructoracipo.cl',
     },
     {
       id: 'proyecto-autoencoder',

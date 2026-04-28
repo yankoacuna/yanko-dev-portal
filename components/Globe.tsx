@@ -19,7 +19,8 @@ const locations: Location[] = [
     color: '#4f8ef7',
     roles: [
       { icon: 'university', text: 'Universidad de Talca' },
-      { icon: 'work',       text: 'PF Alimentos · Ene–Feb 2026' },
+      { icon: 'work', text: 'Constructora Nuevos Aires · Abr 2026 — Actualidad' },
+      { icon: 'work', text: 'PF Alimentos · Ene — Feb 2026' },
     ],
   },
   {
@@ -28,7 +29,7 @@ const locations: Location[] = [
     lng: -70.57,
     color: '#3fb950',
     roles: [
-      { icon: 'work', text: 'Empresas Iansa · Ene 2025–Feb 2025' },
+      { icon: 'work', text: 'Empresas Iansa · Ene 2025 — Feb 2025' },
       { icon: 'work', text: 'Empresas Iansa · Ago 2025' },
     ],
   },
@@ -38,7 +39,7 @@ const locations: Location[] = [
     lng: -95.71,
     color: '#a78bfa',
     roles: [
-      { icon: 'remote', text: 'Outlier AI · Dic 2024–Mar 2025' },
+      { icon: 'remote', text: 'Outlier AI · Dic 2024 — Mar 2025' },
     ],
   },
 ];
@@ -77,11 +78,11 @@ function RemoteIcon() {
 
 function GlobeInner() {
   const containerRef = useRef<HTMLDivElement>(null);
-    const globeRef = useRef<any>(null);
-    const [active, setActive] = useState(0);
+  const globeRef = useRef<any>(null);
+  const [active, setActive] = useState(0);
 
-    useEffect(() => {
-      let destroyed = false;
+  useEffect(() => {
+    let destroyed = false;
 
     async function initGlobe() {
       if (!containerRef.current) return;
