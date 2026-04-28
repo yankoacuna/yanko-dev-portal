@@ -41,7 +41,7 @@ interface Project {
   github?: string;
 }
 
-function ProjectCard({ proj, t }: { proj: Project; t: (k: string) => string }) {
+function ProjectCard({ proj, t, priority = false }: { proj: Project; t: (k: string) => string; priority?: boolean }) {
   const [open, setOpen] = useState(false);
 
   const badgeClass = {
@@ -82,7 +82,12 @@ function ProjectCard({ proj, t }: { proj: Project; t: (k: string) => string }) {
   return (
     <div className="project-card" id={proj.id}>
       <div className="project-image-wrap">
-        <img loading="lazy" src={proj.image} alt={proj.title} />
+        <img 
+          loading={priority ? undefined : "lazy"} 
+          fetchPriority={priority ? "high" : "auto"}
+          src={proj.image} 
+          alt={proj.title} 
+        />
         <span className={`badge-featured ${badgeClass}`}>
           {badgeIcon}
           <span>{proj.badgeLabel}</span>
@@ -387,8 +392,8 @@ export default function Projects() {
 
       {/* Main projects */}
       <div className="project-grid projects-main-container" id="projects-grid">
-        {visibleMain.map((proj) => (
-          <ProjectCard key={proj.id} proj={proj} t={t} />
+        {visibleMain.map((proj, index) => (
+          <ProjectCard key={proj.id} proj={proj} t={t} priority={index < 2} />
         ))}
       </div>
 

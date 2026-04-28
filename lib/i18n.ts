@@ -20,6 +20,7 @@ export const T = {
     nav_proj: 'Proyectos',
     nav_skills: 'Habilidades',
     nav_edu: 'Educación',
+    nav_cert: 'Certificaciones',
     nav_contact: 'Contacto',
 
     // Educación
@@ -147,6 +148,16 @@ export const T = {
     tabl_f3: 'Editor web de componentes con persistencia en Prisma ORM.',
     tabl_f4: 'Validación estricta de payloads para prevenir desbordes de memoria en Arduino.',
 
+    // Certificaciones
+    certTitle: 'Licencias y <span>Certificaciones</span>',
+    certSub: 'Credenciales profesionales validadas por entidades de reconocimiento internacional.',
+    cert_view: 'Ver Certificado',
+    cert_credential: 'Ver Credencial',
+    cert_download: 'Descargar',
+    cert_close: 'Cerrar',
+    cert_upcoming: 'Próximamente',
+    cert_upcoming_section: 'En progreso / Próximas certificaciones',
+
     // Habilidades
     skillsTitle: 'Habilidades <span>Técnicas</span>',
     skillsSub: 'Tecnologías aplicadas en producción y proyectos de investigación.',
@@ -214,6 +225,7 @@ export const T = {
     nav_proj: 'Projects',
     nav_skills: 'Skills',
     nav_edu: 'Education',
+    nav_cert: 'Certifications',
     nav_contact: 'Contact',
 
     // Education
@@ -340,6 +352,16 @@ export const T = {
     tabl_f2: 'Serial Port integration for real-time CPU-Microcontroller synchronization.',
     tabl_f3: 'Web-based component editor with data persistence via Prisma ORM.',
     tabl_f4: 'Strict payload validation to prevent critical memory overflows on the Arduino.',
+
+    // Certifications
+    certTitle: 'Licenses & <span>Certifications</span>',
+    certSub: 'Professional credentials validated by internationally recognized organizations.',
+    cert_view: 'View Certificate',
+    cert_credential: 'View Credential',
+    cert_download: 'Download',
+    cert_close: 'Close',
+    cert_upcoming: 'Coming Soon',
+    cert_upcoming_section: 'In Progress / Upcoming Certifications',
 
     // Badges
     badge_industrial: 'Industrial Production',

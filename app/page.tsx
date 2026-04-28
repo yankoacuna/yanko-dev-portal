@@ -7,6 +7,7 @@ import Education from "@/components/Education";
 import Experience from "@/components/Experience";
 import Projects from "@/components/Projects";
 import Skills from "@/components/Skills";
+import Certifications from "@/components/Certifications";
 import Globe from "@/components/Globe";
 import Contact from "@/components/Contact";
 import IAnkoChat from "@/components/IAnkoChat";
@@ -22,6 +23,7 @@ export default function Home() {
       <Experience />
       <Projects />
       <Skills />
+      <Certifications />
       <Globe />
       <Contact />
       <IAnkoChat />
